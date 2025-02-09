@@ -1,18 +1,25 @@
-import React, {useContext} from 'react';
-import  { Navigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-const ProtectedRoute = ({ requiredRole, children }: { requiredRole: 'ADMIN' | 'USER', children: React.ReactNode }) => {
-  const auth = useContext(AuthContext);
-  
-  if (!auth?.isAuthenticated) {
+interface ProtectedRouteProps {
+  roleRequired?: "ADMIN" | "USER";
+}
+const ProtectedRoute = ({ roleRequired }: ProtectedRouteProps) => {
+  const auth = useSelector((state: RootState) => state.auth);
+  // if(!auth) {
+  //   return <Navigate to="/" />;
+  // }
+  const { isLoggedIn, user } = auth;
+  if(!isLoggedIn) {
     return <Navigate to="/login" />;
   }
-  
-  if (auth.user?.role !== requiredRole) {
-    return <Navigate to="/" />;
+  if(roleRequired && user?.role !== roleRequired) {
+    return <Navigate to="/unauthorized" />;
   }
-  
-  return <>{children}</>;
+  return <Outlet />;
+
 };
+
 export default ProtectedRoute;
+

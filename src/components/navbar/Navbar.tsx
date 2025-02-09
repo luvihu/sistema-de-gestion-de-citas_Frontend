@@ -36,7 +36,7 @@ const Navbar = () => {
 
           {/* Login Button - visible en todas las pantallas */}
           <div className="flex items-center">
-            <a href="/login" className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md text-sm font-medium font-poppins">
+            <a href="/login" className="bg-cyan-600 text-white hover:bg-cyan-700 px-4 py-2 rounded-md text-sm font-medium font-poppins">
               Login
             </a>
             
