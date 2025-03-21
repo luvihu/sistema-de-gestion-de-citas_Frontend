@@ -1,17 +1,14 @@
 import { Dispatch } from "redux";
-import { AUTH_ERROR } from "../../actions-types";
+import { LOGOUT_USER } from "../../actions-types";
 
-interface AuthAction {
-  type: typeof AUTH_ERROR; 
-  payload: string
-}
 export const logoutUser = () => {
-  return (dispatch: Dispatch<AuthAction>) => {
-    localStorage.removeItem("token");  
-
-    dispatch({
-      type: AUTH_ERROR,
-      payload: "Sesión cerrada"
+  return (dispatch: Dispatch) => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+      dispatch({
+      type: LOGOUT_USER
+    
     });
   };
 };

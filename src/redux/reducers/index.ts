@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import authReducer from "./reducer" // Importa el reducer de autenticación
+import dashboardReducer from "./dashboardReducer";
 
 // Combina todos los reducers en uno solo
 const rootReducer = combineReducers({
   auth: authReducer, 
+  dashboard: dashboardReducer,
   // Agrega otros reducers aquí cuando los tengas
 });
 
