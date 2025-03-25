@@ -16,6 +16,9 @@ enum StatusApp {
   CONFIRMADO = "CONFIRMADO",
   CANCELADO = "CANCELADO"
 }
+type ValidTime = '09:00-18:00' | '09:00-15:00' | '14:00-18:00';
+type ValidDays = 'LUNES' | 'MARTES' | 'MIERCOLES' | 'JUEVES' | 'VIERNES';
+
 interface AppointmentsData {
   id: string;
   status?: StatusApp;
@@ -34,6 +37,8 @@ interface AppointmentsData {
     name: string;
     lastname: string;
     active?: boolean;
+    days_atention: ValidDays;
+    hours_attention: ValidTime;
     specialty: {
       id: string;
       name: string;
@@ -129,6 +134,7 @@ const AppointmentsReports = () => {
                 Swal.fire("Eliminado", "La cita ha sido eliminada.", "success");
               }
             });
+
   };
 
   const handleCloseModal = () => {
@@ -138,7 +144,7 @@ const AppointmentsReports = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Gestión de Citas Médicas</h2>
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 text-center w-full">Gestión de Citas Médicas</h2>
       
       <AppointmentFilters 
         doctors={doctors}

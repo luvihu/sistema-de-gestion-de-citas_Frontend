@@ -36,7 +36,7 @@ body {
   font-size: 100%;
   font-family: inherit;
   vertical-align: baseline;
-  background-color: #d9e9e857;
+  background-color: #f0f8ff;
 }
 
 html,
@@ -45,6 +45,7 @@ body {
   width: 100vw;
   /* overflow-x: hidden; */
   /* overflow-y: hidden; */
+  overflow: auto;
 }
 
 a {

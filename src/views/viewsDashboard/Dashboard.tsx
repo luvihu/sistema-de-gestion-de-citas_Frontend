@@ -1,39 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SidebarDashboard from "../../components/dashboard/SidebarDashboard";
-import NavbarDashboard from "../../components/dashboard/NavbarDashboard";
-import HomeDashboard from "../../components/dashboard/HomeDashboard";
-import DoctorManagement from "../../components/dashboard/DoctorManagement";
-import SpecialtiesManagement from "../../components/dashboard/SpecialtiesManagement";
-import AppointmentsReports from "../../components/dashboard/AppointmentsReports";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const renderContent = () => {
-    switch (activeSection) {
+  // Sincronizar activeSection con la ruta actual
+    useEffect(() => {
+      if (location.pathname === "/admin" || location.pathname === "/admin/") {
+        setActiveSection("dashboard");
+      } else if (location.pathname === "/admin/doctores") {
+        setActiveSection("doctors");
+      } else if (location.pathname === "/admin/especialidades") {
+        setActiveSection("specialties");
+      } else if (location.pathname === "/admin/citas") {
+        setActiveSection("appointments");
+      }
+    }, [location.pathname]);
+
+  const handleSectionChange = (section: string) => {{
+    setActiveSection(section);
+    // Navegar a la ruta correspondiente
+    switch (section) {
+      case "dashboard":
+        navigate("/admin");
+        break;
       case "doctors":
-        return <DoctorManagement />;
+        navigate("/admin/doctores");
+        break;
       case "specialties":
-        return <SpecialtiesManagement />;
+        navigate("/admin/especialidades");
+        break;
       case "appointments":
-        return <AppointmentsReports />;
+        navigate("/admin/citas");
+        break;
       default:
-        return <HomeDashboard />;
+        navigate("/admin");
     }
-  };
+  }};
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden" >
       {/* Sidebar */}
-      <SidebarDashboard activeSection={activeSection} setActiveSection={setActiveSection} />
+      <SidebarDashboard activeSection={activeSection} setActiveSection={handleSectionChange} />
 
       {/* Contenedor principal */}
       <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Navbar */}
-        <NavbarDashboard title="Panel de Administración" />
-        
+                
         {/* Contenido dinámico */}
-        <main className="flex-1 p-6 bg-white shadow-md overflow-auto">{renderContent()}</main>
+        <main className="flex-1 p-6 bg-white shadow-md overflow-auto">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

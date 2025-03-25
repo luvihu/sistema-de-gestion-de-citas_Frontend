@@ -1,22 +1,53 @@
+
 import logo from "../assets/logo.png";
 import logoMain from "../assets/logoMain.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ProfileMenu from "../components/users/ProfileMenu";
 import Sidebar from "../components/sidebar/Siderbar";
 import MainContent from "../components/mainContent/MainContent";
 
-const HomeUser = () => {
+const HomeUsers = () => {
   const [activeSection, setActiveSection] = useState("inicio");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isProfilePath = location.pathname === "/user/profile";
+
+  // Sincronizar activeSection con la ruta actual
+  useEffect(() => {
+    if (location.pathname === "/user" || location.pathname === "/user/") {
+      setActiveSection("inicio");
+    } else if (location.pathname === "/user/nuevacita") {
+      setActiveSection("nueva-cita");
+    } else if (location.pathname === "/user/miscitas") {
+      setActiveSection("mis-citas");
+    } else if (location.pathname === "/user/especialidades") {
+      setActiveSection("especialidades");
+    }
+  }, [location.pathname]);
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
-    navigate("/user");
-    setIsSidebarOpen(false); // Cerrar sidebar en móviles al cambiar de sección
+    
+    // Navegar a la ruta correspondiente
+    switch (section) {
+      case "inicio":
+        navigate("/user");
+        break;
+      case "nueva-cita":
+        navigate("/user/nuevacita");
+        break;
+      case "mis-citas":
+        navigate("/user/miscitas");
+        break;
+      case "especialidades":
+        navigate("/user/especialidades");
+        break;
+      default:
+        navigate("/user");
+    }
+    
+    setIsSidebarOpen(false);
   };
 
   return (
@@ -37,35 +68,37 @@ const HomeUser = () => {
         </div>
       </header>
 
-      <div className="flex flex-1">
-        {/* Sidebar responsivo */}
+      {/* Contenedor principal que incluye sidebar y contenido */}
+      <div className="flex flex-1 relative">
+        {/* Sidebar responsivo - Fijo en escritorio */}
         <div
-          className={`fixed inset-y-0 left-0 z-50 transform bg-white shadow-lg w-48 transition-transform duration-300 ease-in-out ${
+          className={`fixed md:sticky inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:relative md:translate-x-0 md:w-60`}
+          } md:translate-x-0 md:w-64 top-[61px] h-[calc(100vh-61px)]`}
         >
-          <div className="h-full overflow-hidden">
-            <Sidebar activeSection={activeSection} setActiveSection={handleSectionChange} />
-          </div>
+          <Sidebar activeSection={activeSection} setActiveSection={handleSectionChange} />
         </div>
+        
         {/* Overlay para cerrar el menú en móviles */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-20 z-40 md:hidden"
+            className="fixed inset-0 bg-black bg-opacity-20 z-30 md:hidden"
             onClick={() => setIsSidebarOpen(false)}
           ></div>
         )}
 
-        {/* Contenido principal */}
+        {/* Contenido principal - Expandible */}
         <main
-          className="flex-1 relative z-0 bg-cover bg-center bg-no-repeat min-h-screen"
+          className="flex-1 overflow-auto bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${logoMain})`,
             backgroundAttachment: "fixed",
           }}
         >
           <div className="min-h-full w-full bg-gray-200 bg-opacity-20 p-4">
-            {isProfilePath ? <Outlet /> : <MainContent activeSection={activeSection} />}
+            <MainContent>
+              <Outlet />
+            </MainContent>
           </div>
         </main>
       </div>
@@ -73,9 +106,6 @@ const HomeUser = () => {
   );
 };
 
-export default HomeUser;
-
-
-
+export default HomeUsers;
 
 

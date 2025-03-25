@@ -24,7 +24,6 @@ const NavLinkItem = ({ id, label, closeMenu }: { id: string; label: string; clos
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const handleLinkClick = useCallback(() => setIsOpen(false), []);
  
   return (
@@ -45,11 +44,17 @@ const Navbar = () => {
 
           {/* Login Button */}
           <div className="flex items-center">
-            <Link to="/login" onClick={handleLinkClick} className="bg-cyan-600 text-white hover:bg-cyan-700 px-3 py-2 rounded-md text-sm font-medium font-poppins">
+            <Link 
+            to="/login" 
+            rel="noopener noreferrer"
+            onClick={handleLinkClick} 
+            className="bg-cyan-600 text-white hover:bg-cyan-700 px-3 py-2 rounded-md text-sm font-medium font-poppins">
               Iniciar sesión
             </Link>
-            <Link to="/register"
-              className="bg-cyan-600 text-white hover:bg-cyan-700 px-3 py-2 rounded-md text-sm font-medium font-poppins ml-2 mr-2"
+            <Link 
+            to="/register"
+            rel="noopener noreferrer" 
+            className="bg-cyan-600 text-white hover:bg-cyan-700 px-3 py-2 rounded-md text-sm font-medium font-poppins ml-2 mr-2"
             >
               Registrarse
             </Link>

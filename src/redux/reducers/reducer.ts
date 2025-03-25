@@ -5,6 +5,7 @@ import { AUTH_USER,
   REGISTER_USER, 
   USER_ID,
   USER_GET,
+  UPDATE_USER,
   CREATE_APPOINTMENT,
   FETCH_SPECIALTIESBYID,
   FETCH_SPECIALTIES,
@@ -45,6 +46,7 @@ const initialState: AuthState = {
 };
 
 const authReducer = (state = initialState, action: AnyAction): AuthState => {
+  console.log('estado actual de authReducer:', state);
   switch (action.type) {
     case AUTH_USER:
         return {
@@ -94,6 +96,52 @@ const authReducer = (state = initialState, action: AnyAction): AuthState => {
         ...state,
         users: action.payload,
       };
+      case UPDATE_USER:
+        return {
+          ...state,
+          // Actualizar el array users
+          users: state.users.map((user) => user.id === action.payload.id
+            ? {
+              ...user,
+              name: action.payload.name,
+              lastname: action.payload.lastname,
+              dni: action.payload.dni,
+              telephone: action.payload.telephone,
+              photo_profile: action.payload.photo_profile,
+              email: action.payload.email,
+              password: action.payload.password,
+              role: action.payload.role,
+            }: user),
+          // Actualizar también el objeto user si coincide el ID
+          user: state.user && state.user.id === action.payload.id
+            ? {
+              ...state.user,
+              name: action.payload.name,
+              lastname: action.payload.lastname,
+              dni: action.payload.dni,
+              telephone: action.payload.telephone,
+              photo_profile: action.payload.photo_profile,
+              email: action.payload.email,
+              password: action.payload.password,
+              role: action.payload.role,
+            }
+            : state.user,
+          // También actualizar userById si coincide el ID
+          userById: state.userById && state.userById.id === action.payload.id
+            ? {
+              ...state.userById,
+              name: action.payload.name,
+              lastname: action.payload.lastname,
+              dni: action.payload.dni,
+              telephone: action.payload.telephone,
+              photo_profile: action.payload.photo_profile,
+              email: action.payload.email,
+              password: action.payload.password,
+              role: action.payload.role,
+            }
+            : state.userById
+        };
+      
     case CREATE_APPOINTMENT:
       return {
         ...state,

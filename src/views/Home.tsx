@@ -10,8 +10,8 @@ const Home = () => {
         navigate('/login');
     };
     return (
-        <div className="h-screen pt-16">
-            <div className="relative h-[calc(100vh-4rem)] ">
+        <div className="h-screen pt-16  ">
+            <div className="relative h-[calc(100vh-4rem)] overflow-x-auto">
                 <div className="absolute inset-0">
                     <img 
                         src={portadaClinicc}
@@ -44,7 +44,7 @@ const Home = () => {
                         </div>
                     </div>
                   </div>
-                 <div className='items-center mt-20 p-4'>
+                 <div className='items-center mt-40 p-4'>
                     <Nosotros/>
                  </div>
                   <div className='flex justify-center items-center p-4'>

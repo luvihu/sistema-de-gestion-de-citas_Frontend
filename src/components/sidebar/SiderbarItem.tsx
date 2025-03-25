@@ -13,17 +13,21 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ id, label, icon, isActive, on
     <li>
       <button
         onClick={() => onClick(id)}
-        className={`w-40 md:w-full flex items-center px-2 py-2 mb-2  md:py-2 rounded-md transition-all duration-300 
-          ${isActive ? "bg-sky-300 text-black font-semibold" : "hover:bg-sky-100"}
+        className={`w-full flex items-center px-4 py-3 rounded-lg transition-all duration-200
+          ${
+            isActive 
+              ? "bg-blue-600 text-white shadow-md" 
+              : "text-gray-700 hover:bg-blue-100"
+          }
         `}
       >
         {/* Icono responsivo */}
-        <span className="text-xl md:text-2xl mr-2 transform transition-transform duration-200 hover:scale-110 md:hover:scale-125">
+        <span className="text-xl mr-3 transform transition-transform duration-200 hover:scale-110">
           {icon}
         </span>
-        
+       
         {/* Texto responsivo */}
-        <span className="text-md md:text-lg">{label}</span>
+        <span className="hidden md:inline font-medium">{label}</span>
       </button>
     </li>
   );

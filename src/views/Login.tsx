@@ -1,3 +1,4 @@
+import logo from '../assets/logo.png';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { useState, useEffect } from 'react';
 import { loginUser } from '../redux/actions/user/loginUser';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface LoginValues {
   email: string;
@@ -46,105 +48,117 @@ const { role } = useSelector((state: RootState) => state.auth);
     const emailLowerCase = values.email.toLowerCase();
     console.log("Email en Login:", emailLowerCase);
     await dispatch(loginUser(emailLowerCase, values.password));
-    
-     setSubmitting(false);
+    setSubmitting(false);
   };
   
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-2xl">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-700 mb-2">
-            Iniciar sesión
-          </h1>
-        </div>
-        {authError && (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <span className="block sm:inline">{authError}</span>
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Logo en la esquina superior izquierda */}
+      <div className="absolute top-4 left-4 w-full border-b border-gray-200">
+        <Link to="/" className="flex-shrink-0">
+          <img src={logo} alt="logo" className="h-14 md:h-16 w-auto mb-2" />
+        </Link>
       </div>
-    )}
-        <Formik
-          initialValues={initialValues}
-          validationSchema={LoginSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className="mt-8 space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
-                    Email
-                  </label>
-                  <Field
-                    type="email"
-                    name="email"
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 transition duration-200"
-                    placeholder="ejemplo@correo.com"
-                  />
-                  <ErrorMessage name="email" component="div" className="text-red-700 text-sm mt-1" />
-                </div>
-
-                <div>
-                  <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
-                    Contraseña
-                  </label>
-                  <div className="relative">
-                  <Field
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    className="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 transition duration-200"
-                    placeholder="••••••••"
-                  />
-                  <button
-                      type="button"
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                          <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                        </svg>
-                      ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
-                          <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
-                        </svg>
-                      )}
-                    </button>
+      
+      {/* Contenedor principal centrado */}
+      <div className="flex-grow flex items-center justify-center pt-20">
+        <div className="w-full max-w-md mx-auto my-8 px-4">
+          <div className="bg-white rounded-lg shadow-lg p-6 overflow-hidden">
+            <h2 className="text-2xl font-bold text-center mb-6 font-poppins text-cyan-700">
+              Iniciar sesión
+            </h2>
+            
+            {authError && (
+              <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-md">
+                <p className="text-red-700 text-center text-sm">{authError}</p>
+              </div>
+            )}
+            
+            <Formik
+              initialValues={initialValues}
+              validationSchema={LoginSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting, touched, errors }) => (
+                <Form className="space-y-5">
+                  <div className="w-full">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
+                      Correo electrónico
+                    </label>
+                    <Field
+                      type="email"
+                      name="email"
+                      className={`w-full px-4 py-2.5 rounded-md border transition duration-200 focus:ring-2 focus:outline-none ${
+                        touched.email && errors.email
+                          ? "border-red-300 focus:ring-red-200"
+                          : "border-gray-300 focus:ring-cyan-200 focus:border-cyan-500"
+                      }`}
+                      placeholder="ejemplo@correo.com"
+                    />
+                    <ErrorMessage name="email" component="p" className="mt-1 text-red-600 text-xs font-medium" />
                   </div>
-                  <ErrorMessage name="password" component="div" className="text-red-700 text-sm mt-1" />
-                </div>
-              </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full flex justify-center py-3 px-4 rounded-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-cyan-500"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Iniciando sesión...
-                  </span>
-                ) : 'Ingresar'}
-              </button>
+                  <div className="w-full">
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1 font-montserrat">
+                      Contraseña
+                    </label>
+                    <div className="relative">
+                      <Field
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        className={`w-full px-4 py-2.5 rounded-md border transition duration-200 focus:ring-2 focus:outline-none ${
+                          touched.password && errors.password
+                            ? "border-red-300 focus:ring-red-200"
+                            : "border-gray-300 focus:ring-cyan-200 focus:border-cyan-500"
+                        }`}
+                        placeholder="••••••••"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      >
+                        {showPassword ? 
+                          <FaEye className="text-xl" /> : 
+                          <FaEyeSlash className="text-xl" />
+                        }
+                      </button>
+                    </div>
+                    <ErrorMessage name="password" component="p" className="mt-1 text-red-600 text-xs font-medium" />
+                  </div>
 
-              <div className="text-center">
-                <p className="text-sm text-gray-600">
-                  ¿No tienes una cuenta?{' '}
-                  <Link to="/register" className="font-medium text-cyan-600 hover:text-cyan-800 transition duration-200">
-                    Regístrate aquí
-                  </Link>
-                </p>
-              </div>
-            </Form>
-          )}
-        </Formik>
+                  <div className="pt-2 space-y-3">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-cyan-600 text-white py-2.5 rounded-md hover:bg-cyan-700 transition duration-200 font-medium shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Iniciando sesión...
+                        </span>
+                      ) : 'Ingresar'}
+                    </button>
+                    
+                    <div className="text-center pt-2">
+                      <p className="text-sm text-gray-600 font-montserrat">
+                        ¿No tienes una cuenta?{' '}
+                        <Link to="/register" className="font-medium text-cyan-600 hover:text-cyan-800 transition duration-200">
+                          Regístrate aquí
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </div>
       </div>
     </div>
   )

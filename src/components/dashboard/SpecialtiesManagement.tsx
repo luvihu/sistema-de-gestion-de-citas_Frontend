@@ -58,10 +58,10 @@ const SpecialtiesManagement = () => {
   return (
     <div className="container mx-auto px-4 py-6">
     <div className="flex justify-between items-center mb-6">
-      <h2 className="text-2xl font-bold text-gray-800">Gestión de Especialidades</h2>
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800">Gestión de Especialidades</h2>
       <button
         onClick={() => handleOpenModal()}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex items-center"
       >
         <FaPlus className="mr-2" /> Agregar Especialidad
       </button>
@@ -80,18 +80,18 @@ const SpecialtiesManagement = () => {
     ) : (
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-cyan-100">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Nombre
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Descripción
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Doctores
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Acciones
               </th>
             </tr>
@@ -113,7 +113,7 @@ const SpecialtiesManagement = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleOpenModal(specialty)}
-                        className="text-blue-800 hover:text-blue-900 mx-2"
+                        className="text-blue-700 hover:text-blue-900 mx-2"
                         title="Editar especialidad"
                       >
                         <FaEdit className="h-5 w-5" />

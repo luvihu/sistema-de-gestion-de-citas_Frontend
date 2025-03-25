@@ -69,7 +69,6 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
       })
     }),
     onSubmit: async (values) => {
-      console.log("Valores a enviar:", values);
       setIsSubmitting(true);
       const doctorSend = {
         ...values,
@@ -77,7 +76,6 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
       }
       try {
         await dispatch(createDoctors(doctorSend));
-        console.log("Valores doctorSend:", doctorSend);
         handleClose();
       } catch (error) {
         console.error('Error al crear doctor:', error);
@@ -91,13 +89,12 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
    const handleSpecialtyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const specialtyId = e.target.value;
     const selectedSpecialty = specialtiesRedux.find(spec => spec.id === specialtyId)
-    console.log("Especialidad seleccionada:", selectedSpecialty);
     formik.setFieldValue('specialty', selectedSpecialty);
   };
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
     <div className="bg-white rounded-lg p-8 max-w-md w-full">
       <h2 className="text-2xl font-bold text-center mb-4">Registro de Doctor</h2>
       {error && <p className="text-red-700 text-center mb-4">{error}</p>}

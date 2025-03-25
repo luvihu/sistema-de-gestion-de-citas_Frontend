@@ -6,6 +6,9 @@ enum StatusApp {
   CONFIRMADO = "CONFIRMADO",
   CANCELADO = "CANCELADO"
 }
+type ValidTime = '09:00-18:00' | '09:00-15:00' | '14:00-18:00';
+type ValidDays = 'LUNES' | 'MARTES' | 'MIERCOLES' | 'JUEVES' | 'VIERNES';
+
 interface AppointmentsData {
   id: string;
   status?: StatusApp;
@@ -24,6 +27,8 @@ interface AppointmentsData {
     name: string;
     lastname: string;
     active?: boolean;
+    days_atention: ValidDays;
+    hours_attention: ValidTime;
     specialty: {
       id: string;
       name: string;
@@ -54,28 +59,28 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments, onEdi
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-gray-300">
+          <thead className="bg-cyan-100">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Paciente
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Doctor
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Especialidad
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Fecha
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Hora
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Estado
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                 Acciones
               </th>
             </tr>
@@ -126,7 +131,7 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments, onEdi
                     <div className="flex space-x-2">
                       <button
                         onClick={() => onEdit(appointment)}
-                        className="text-indigo-600 hover:text-indigo-900 transition duration-150"
+                        className="text-blue-700 hover:text-blue-900 transition duration-150"
                         title="Editar cita"
                       >
                         <FaEdit size={18} />

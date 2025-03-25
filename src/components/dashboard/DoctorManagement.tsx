@@ -80,10 +80,10 @@ const DoctorManagement = () => {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-4">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">Panel de Control de Doctores</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-6 text-gray-800">Panel de Control de Doctores</h2>
       <button 
           onClick={resetFilters}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
         >
           Resetear Filtros
         </button>
@@ -95,14 +95,14 @@ const DoctorManagement = () => {
         </div>
       ) : (
       <div className="overflow-x-auto rounded-md">
-        <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+       <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-cyan-100">
             <tr>
               <th className="px-6 py-3">
                 <input
                   type="text"
                   placeholder="Filtrar por nombre"
-                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none"
+                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none font-normal text-gray-700"
                   value={filters.fullName}
                   onChange={(e) => setFilters({...filters, fullName: e.target.value})}
                 />
@@ -111,7 +111,7 @@ const DoctorManagement = () => {
                 <input
                   type="text"
                   placeholder="Filtrar por especialidad"
-                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none"
+                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none font-normal text-gray-700"
                   value={filters.specialty}
                   onChange={(e) => setFilters({...filters, specialty: e.target.value})}
                 />
@@ -120,16 +120,16 @@ const DoctorManagement = () => {
                 <input
                   type="text"
                   placeholder="Filtrar por días"
-                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none"
+                  className="w-full px-2 py-1 text-sm border rounded border-blue-300 focus:outline-none font-normal text-gray-700"
                   value={filters.days}
                   onChange={(e) => setFilters({...filters, days: e.target.value})}
                 />
               </th>
               <th className="px-6 py-3">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">Horario</div>
+                <div className="text-xs font-medium text-gray-700 uppercase tracking-wider">Horario</div>
               </th>
               <th className="px-6 py-3">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">Contacto</div>
+                <div className="text-xs font-medium text-gray-700 uppercase tracking-wider">Contacto</div>
               </th>
               <th className="px-6 py-3">
                 <select
@@ -143,10 +143,10 @@ const DoctorManagement = () => {
                 </select>
               </th>
               <th className="px-6 py-3">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">Citas</div>
+                <div className="text-xs font-medium text-gray-700 uppercase tracking-wider">Citas</div>
               </th>
               <th className="px-6 py-3">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</div>
+                <div className="text-xs font-medium text-gray-700 uppercase tracking-wider">Acciones</div>
               </th>
             </tr>
           </thead>
@@ -186,7 +186,7 @@ const DoctorManagement = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                   <button
                     onClick={() => handleUpdateClick(doctor)}
-                    className="text-blue-800 hover:text-blue-900 mx-2"
+                    className="text-blue-700 hover:text-blue-900 mx-2"
                     title="Editar Doctor"
                   >
                     <FaEdit className="h-5 w-5" />

@@ -2,6 +2,7 @@ import React from "react";
 
 
 export interface User {
+  id?: string;
   name: string;
   lastname: string;
   dni: string;
@@ -64,6 +65,8 @@ export interface AppointmentsData {
     name: string;
     lastname: string;
     active?: boolean;
+    days_atention: ValidDays;
+    hours_attention: ValidTime;
     specialty: {
       id: string;
       name: string;

@@ -7,7 +7,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) => {
-  
   const sidebarItems = [
     { id: "inicio", label: "Inicio", icon: "🏠" },
     { id: "nueva-cita", label: "Nueva Cita", icon: "📅" },
@@ -16,9 +15,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
   ];
 
   return (
-    <aside className="w-80 md:w-60 bg-white shadow-xl h-screen overflow-y-auto">
-      <nav className="p-4 md:p-6">
-        <ul className="flex flex-col gap-4 font-semibold text-blue-950">
+    <aside className="h-full bg-gradient-to-b from-blue-50 to-white shadow-xl border-r border-gray-200 flex flex-col overflow-y-auto">
+      <div className="p-4 border-b border-gray-100">
+        <h2 className="hidden md:block text-xl font-poppins font-bold text-blue-600">Portal Paciente</h2>
+        <p className="hidden md:block text-xs text-gray-500 mt-1">Gestión de citas</p>
+      </div>
+      
+      <nav className="p-4">
+        <ul className="space-y-3 font-poppins">
           {sidebarItems.map((item) => (
             <SidebarItem
               key={item.id}
@@ -31,6 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
           ))}
         </ul>
       </nav>
+        
     </aside>
   );
 };

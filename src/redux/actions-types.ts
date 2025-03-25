@@ -5,6 +5,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const REGISTER_USER = 'REGISTER_USER';
 export const USER_ID = 'USER_ID';
 export const USER_GET = "USER_GET";
+export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_APPOINTMENT = "CREATE_APPOINTMENT";
 export const FETCH_SPECIALTIES = "FETCH_SPECIALTIES";
 export const CREATE_SPECIALTY = "CREATE_SPECIALTY";

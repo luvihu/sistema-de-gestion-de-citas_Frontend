@@ -44,14 +44,12 @@ const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
 }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-      <h3 className="text-lg font-semibold mb-4 text-gray-700">Filtros</h3>
-      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Filtro por doctor */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Doctor</label>
+          <label className="block text-sm font-medium text-cyan-900 mb-1">Doctor</label>
           <select 
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-blue-300 rounded-md focus:ring-blue-300 focus:border-blue-900"
             onChange={(e) => setDoctorFilter(e.target.value)}
             defaultValue=""
           >
@@ -66,29 +64,29 @@ const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
         
         {/* Filtro por fecha */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Fecha específica</label>
+          <label className="block text-sm font-medium text-cyan-900 mb-1">Fecha específica</label>
           <input 
             type="date" 
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-blue-300 rounded-md focus:ring-blue-300 focus:border-blue-900"
             onChange={(e) => setDateFilter(e.target.value)}
           />
         </div>
         
         {/* Filtro por semana */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Semana (inicio)</label>
+          <label className="block text-sm font-medium text-cyan-900 mb-1">Semana (inicio)</label>
           <input 
             type="date" 
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-blue-300 rounded-md focus:ring-blue-300 focus:border-blue-900"
             onChange={(e) => setWeekFilter(e.target.value)}
           />
         </div>
         
         {/* Filtro por especialidad */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Especialidad</label>
+          <label className="block text-sm font-medium text-cyan-900 mb-1">Especialidad</label>
           <select 
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-blue-300 rounded-md focus:ring-blue-300 focus:border-blue-900"
             onChange={(e) => setSpecialtyFilter(e.target.value)}
             defaultValue=""
           >
@@ -103,9 +101,9 @@ const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
         
         {/* Filtro por usuario */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
+          <label className="block text-sm font-medium text-cyan-900 mb-1">Paciente</label>
           <select 
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-blue-300 rounded-md focus:ring-blue-300 focus:border-blue-900"
             onChange={(e) => setUserFilter(e.target.value)}
             defaultValue=""
           >
@@ -121,7 +119,7 @@ const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
         {/* Botón de limpiar filtros */}
         <div className="flex items-end">
           <button 
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-300"
+            className="bg-blue-200 hover:bg-blue-300 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-300"
             onClick={() => {
               setDoctorFilter('');
               setDateFilter('');
