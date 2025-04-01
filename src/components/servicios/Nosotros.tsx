@@ -6,15 +6,15 @@ const Nosotros = () => {
   const slides = [
     {
       text: "Agenda tus citas médicas online de manera rápida y segura",
-      image: "/public/citamedic.jpg",
+      image: "/citamedic.jpg",
     },
     {
       text: "Cuidado médico acorde a tus necesidades.",
-      image: "/public/staffMedical.jpg",
+      image: "/staffMedical.jpg",
     },
     {
       text: "Encuentra al especialista que necesitas.",
-      image: "/public/especialities.jpg",
+      image: "/especialities.jpg",
     }
   ];
 
@@ -25,7 +25,7 @@ const Nosotros = () => {
       );
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" id='nosotros'>
