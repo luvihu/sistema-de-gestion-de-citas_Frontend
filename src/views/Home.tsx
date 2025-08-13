@@ -16,7 +16,7 @@ const Home = () => {
                     <img 
                         src={portadaClinicc}
                         alt="Background Clínica" 
-                        className="w-full h-full object-fill"
+                        className="w-full h-full object-fill mb-16"
                     />
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-900/10 to-cyan-900/40"></div>
                 </div>
@@ -44,7 +44,7 @@ const Home = () => {
                         </div>
                     </div>
                   </div>
-                 <div className='items-center mt-40 p-4'>
+                 <div className='items-center mt-24 p-4'>
                     <Nosotros/>
                  </div>
                   <div className='flex justify-center items-center p-4'>

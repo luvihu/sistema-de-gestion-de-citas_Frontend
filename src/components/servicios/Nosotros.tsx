@@ -28,7 +28,7 @@ const Nosotros = () => {
   }, [slides.length]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" id='nosotros'>
+    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8" id='nosotros'>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold font-playfair text-cyan-950 mb-10 text-center">Sobre Nosotros</h2>
