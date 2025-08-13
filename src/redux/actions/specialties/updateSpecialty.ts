@@ -39,7 +39,7 @@ export const updateSpeciality = (id: string, specialtyData: Partial<Specialty>) 
       showSuccess();
 
     } catch (error) {
-      let errorMessage = "Error de registro desconocido";
+      let errorMessage = "Error desconocido";
       if (error instanceof Error) {
         errorMessage = error.message;
       }

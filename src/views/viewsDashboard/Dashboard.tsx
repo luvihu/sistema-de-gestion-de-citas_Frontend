@@ -48,8 +48,7 @@ const Dashboard = () => {
 
       {/* Contenedor principal */}
       <div className="flex flex-col flex-1 overflow-hidden">
-                
-        {/* Contenido dinámico */}
+         {/* Contenido dinámico */}
         <main className="flex-1 p-6 bg-white shadow-md overflow-auto">
           <Outlet />
         </main>

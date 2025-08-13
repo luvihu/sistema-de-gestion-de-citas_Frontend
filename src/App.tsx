@@ -54,7 +54,7 @@ function App() {
                 <Route path="doctores" element={<DoctorManagement />} />
                 <Route path="especialidades" element={<SpecialtiesManagement />} />
                 <Route path="citas" element={<AppointmentsReports />} />
-                </Route>
+              </Route>
               <Route 
                 path="/user/*" 
                 element={

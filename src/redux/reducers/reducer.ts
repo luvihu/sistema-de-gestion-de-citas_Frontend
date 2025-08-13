@@ -46,7 +46,6 @@ const initialState: AuthState = {
 };
 
 const authReducer = (state = initialState, action: AnyAction): AuthState => {
-  console.log('estado actual de authReducer:', state);
   switch (action.type) {
     case AUTH_USER:
         return {
@@ -169,7 +168,7 @@ const authReducer = (state = initialState, action: AnyAction): AuthState => {
     case DELETE_SPECIALTY:
       return {
           ...state,
-          specialties: state.specialties.filter((specialty) => specialty.id !== action.payload),
+          specialties: state.specialties.filter((specialty) => specialty.id !== action.payload.id),
       };
     case UPDATE_SPECIALTY:
       return {

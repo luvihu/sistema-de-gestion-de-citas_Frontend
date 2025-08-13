@@ -32,9 +32,7 @@ const initialState: DashboardState = {
 };
 
 const dashboardReducer = (state = initialState, action: AnyAction): DashboardState => {
-   console.log("Estado actual de dashboardReducer:", state);
-    console.log("Payload recibido en acción dashboardReducer:", action);
-  switch (action.type) {
+   switch (action.type) {
     case SUMMARY_DASHBOARD:
       return {
         ...state,
