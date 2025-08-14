@@ -16,8 +16,7 @@ export const fetchDoctors = () => {
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, fetchDoctor:", response.data.data);
-      dispatch({
+        dispatch({
         type: FETCH_DOCTORS,
         payload: response.data.data,
       });

@@ -28,9 +28,7 @@ const Login = () => {
   
  const [showPassword, setShowPassword] = useState(false); 
  const authError = useSelector((state: RootState) => state.auth.error);
-const { role } = useSelector((state: RootState) => state.auth);
-  console.log("Role en Login:", role);
-
+ const { role } = useSelector((state: RootState) => state.auth);
   const initialValues: LoginValues = {
     email: '',
     password: '',
@@ -46,7 +44,6 @@ const { role } = useSelector((state: RootState) => state.auth);
   }, [navigate, role]);
   const handleSubmit = async (values: LoginValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     const emailLowerCase = values.email.toLowerCase();
-    console.log("Email en Login:", emailLowerCase);
     await dispatch(loginUser(emailLowerCase, values.password));
     setSubmitting(false);
   };

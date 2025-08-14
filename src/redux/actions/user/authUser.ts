@@ -17,8 +17,7 @@ export const authUser = (token: string) => {
                 }
             });
             const userData = response.data.user;
-            console.log("Datos del usuario en authUser:", userData);
-
+            
             if(!userData.role) {
                 throw new Error("El usuario no tiene un rol asignado");
             };

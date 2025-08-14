@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" onClick={handleLinkClick} className="flex-shrink-0">
-            <img src={logo} alt="logo" className="h-12 w-auto" />
+            <img src={logo} alt="logo" className="h-12 w-auto cursor-pointer transition-transform hover:scale-105" />
           </Link>
         
            {/* Enlaces de navegación (Desktop) */}

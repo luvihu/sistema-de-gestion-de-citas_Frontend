@@ -9,8 +9,7 @@ export const createAppointment = (appointmentData: Appointment) => {
     return async (dispatch: Dispatch) => {
         try {
             const token = localStorage.getItem("token"); 
-      console.log("Token en getUserId:", token);
-
+      
       if (!token) {
         throw new Error("No se proporcionó un token de autenticación");
       }
@@ -19,8 +18,7 @@ export const createAppointment = (appointmentData: Appointment) => {
                   Authorization: `Bearer ${token}` 
                 }
               });
-            console.log("Respuesta del servidor creacion de citas:", response.data);
-            dispatch({
+                dispatch({
                 type: CREATE_APPOINTMENT,
                 payload: response.data
             });

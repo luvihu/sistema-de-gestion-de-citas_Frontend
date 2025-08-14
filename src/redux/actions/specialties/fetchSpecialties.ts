@@ -17,8 +17,7 @@ export const fetchSpecialties = () => {
           Authorization: `Bearer ${token}` 
         },
       });
-      console.log("Respuesta del servidor, getSpecialties:", response.data.data);
-      dispatch({
+        dispatch({
         type: FETCH_SPECIALTIES,
         payload: response.data.data,
       });

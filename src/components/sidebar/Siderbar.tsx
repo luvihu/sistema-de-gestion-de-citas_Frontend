@@ -6,13 +6,13 @@ interface SidebarProps {
   setActiveSection: (id: string) => void;
 }
 
+const sidebarItems = [
+  { id: "inicio", label: "Inicio", icon: "🏠" },
+  { id: "nueva-cita", label: "Nueva Cita", icon: "📅" },
+  { id: "mis-citas", label: "Mis Citas", icon: "📋" },
+  { id: "especialidades", label: "Especialidades", icon: "🏥" },
+];
 const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) => {
-  const sidebarItems = [
-    { id: "inicio", label: "Inicio", icon: "🏠" },
-    { id: "nueva-cita", label: "Nueva Cita", icon: "📅" },
-    { id: "mis-citas", label: "Mis Citas", icon: "📋" },
-    { id: "especialidades", label: "Especialidades", icon: "🏥" },
-  ];
 
   return (
     <aside className="h-full bg-gradient-to-b from-blue-50 to-white shadow-xl border-r border-gray-200 flex flex-col overflow-y-auto">

@@ -21,8 +21,7 @@ export const registerUser = (userData: User) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.post(`${API_URL_BASE}/users/register`, userData);
-      console.log("Respuesta del servidor:", response.data);
-      dispatch({
+        dispatch({
         type: REGISTER_USER,
         payload: response.data
       });

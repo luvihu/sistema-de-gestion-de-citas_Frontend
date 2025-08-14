@@ -10,9 +10,7 @@ export const loginUser = (email: string, password: string) => {
                 email,
                 password
             });
-            console.log("Respuesta del servidor:", response.data.data);
-            console.log("Rol recibido del servidor:", response.data.data.role);
-
+          
             const { user, token, role } = response.data.data;
             // Guardar en Redux
             dispatch({

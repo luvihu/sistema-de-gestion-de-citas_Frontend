@@ -30,8 +30,7 @@ export const createSpecialty = (specialtyData: Partial<Specialty>) => {
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, createSpecialty:", response.data.data);
-      dispatch({
+        dispatch({
         type: CREATE_SPECIALTY,
         payload: response.data.data,
       });

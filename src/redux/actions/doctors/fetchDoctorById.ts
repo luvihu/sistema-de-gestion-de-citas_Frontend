@@ -8,8 +8,7 @@ export const fetchDoctorById = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.get(`${API_URL_BASE}/doctor/${id}`);
-      console.log("Respuesta del servidor, fetchDoctorById:", response.data);
-      dispatch({
+        dispatch({
         type: FETCH_DOCTOR_BY_ID,
         payload: response.data,
       });

@@ -16,8 +16,7 @@ const API_URL_BASE = import.meta.env.VITE_API_URL_BASE;
               Authorization: `Bearer ${token}`, 
             },
           });
-          console.log("Respuesta del servidor, dashboardSummary:", response.data.data);
-          dispatch({
+                dispatch({
                 type: SUMMARY_DASHBOARD,
                 payload: response.data.data,
             });

@@ -17,8 +17,7 @@ export const fetchUsers = () => {
           Authorization: `Bearer ${token}` 
         },
       });
-      console.log("Respuesta del servidor, fetchUsers:", response.data.data);
-      dispatch({
+        dispatch({
         type: USER_GET,
         payload: response.data.data,
       });

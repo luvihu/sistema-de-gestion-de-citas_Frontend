@@ -29,8 +29,7 @@ export const createDoctors = (doctorData: Doctor) => {
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, createDoctors:", response.data.data);
-      dispatch({
+        dispatch({
         type: CREATE_DOCTOR,
         payload: response.data.data,
       });

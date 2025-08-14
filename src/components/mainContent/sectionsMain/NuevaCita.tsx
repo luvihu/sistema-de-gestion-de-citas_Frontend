@@ -38,11 +38,9 @@ const NuevaCita = () => {
   }).then(() => navigate("/user"));
   };
 
-  const { specialties, doctorsBySpecialty } = useSelector((state: RootState) => ({
-    specialties: state.auth.specialties as Specialty[],
-    doctorsBySpecialty: state.auth.doctorsBySpecialty as Doctor[]
-  }));
-  const { userById } = useSelector((state: RootState) => state.auth);
+  const specialties = useSelector((state: RootState) => state.auth.specialties as Specialty[]);
+const doctorsBySpecialty = useSelector((state: RootState) => state.auth.doctorsBySpecialty as Doctor[]);
+const userById = useSelector((state: RootState) => state.auth.userById);
   const dataUserById = userById?.appointments || [];
  
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");

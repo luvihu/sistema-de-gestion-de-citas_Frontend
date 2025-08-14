@@ -31,8 +31,7 @@ export const updateAppointment = (id: string, change: Partial<Appointment>) => {
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, updateAppointment:", response.data.data);
-      dispatch({
+        dispatch({
         type: UPDATE_APPOINT,
         payload: response.data.data
       });

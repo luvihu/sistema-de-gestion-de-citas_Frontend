@@ -8,8 +8,7 @@ export const getUserId = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
       const token = localStorage.getItem("token"); 
-      console.log("Token en getUserId:", token);
-
+      
       if (!token) {
         throw new Error("No se proporcionó un token de autenticación");
       }
@@ -19,8 +18,7 @@ export const getUserId = (id: string) => {
         },
       } );
       const userData = response.data.data;
-      console.log("datos del usuario recibidos:", userData);
-      dispatch({
+        dispatch({
         type: USER_ID,
         payload: userData,
       });

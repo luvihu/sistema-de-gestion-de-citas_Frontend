@@ -31,8 +31,7 @@ export const updateSpeciality = (id: string, specialtyData: Partial<Specialty>) 
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, updateSpecialty:", response.data.data);
-      dispatch({
+        dispatch({
         type: UPDATE_DOCTOR,
         payload: response.data.data
       });

@@ -30,8 +30,7 @@ export const updateUser = (id: string, userData: Partial<User>) => {
           Authorization: `Bearer ${token}`, 
         },
       });
-      console.log("Respuesta del servidor, updateDoctor:", response.data.data);
-      dispatch({
+        dispatch({
         type: UPDATE_USER,
         payload: response.data.data
       });

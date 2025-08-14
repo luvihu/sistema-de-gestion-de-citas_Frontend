@@ -8,8 +8,7 @@ export const fetchSpecialtiesById = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
       const token = localStorage.getItem("token"); 
-      console.log("Token en getUserId:", token);
-
+      
       if (!token) {
         throw new Error("No se proporcionó un token de autenticación");
       }
@@ -18,8 +17,7 @@ export const fetchSpecialtiesById = (id: string) => {
           Authorization: `Bearer ${token}` 
         }
       });
-      console.log("Respuesta del servidor, getSpecialtyById:", response.data.data);
-      dispatch({
+        dispatch({
         type: FETCH_SPECIALTIESBYID,
         payload: response.data.data,
       });

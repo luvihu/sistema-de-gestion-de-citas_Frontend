@@ -20,20 +20,19 @@ import DoctorManagement from './components/dashboard/DoctorManagement';
 import SpecialtiesManagement from './components/dashboard/SpecialtiesManagement';
 import AppointmentsReports from './components/dashboard/AppointmentsReports';
 
-
 function App() {
   const { pathname } = useLocation();
   const dispatch = useDispatch<AppDispatch>();
  
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log("Token encontrado en localStorage:", token);
-    if (token) {
+     if (token) {
         dispatch(authUser(token));
      }
   },[dispatch] );
 
   const showNavbar = pathname === "/";
+  
   return (
       <main>
          { showNavbar && <Navbar />}
@@ -73,7 +72,7 @@ function App() {
               <Route path="/unauthorized" element={<h1>No tiene permiso</h1>} />
               <Route path="*" element={<h1>404</h1>} />
           </Routes>
-      </main>
+       </main>
    );
 }
 

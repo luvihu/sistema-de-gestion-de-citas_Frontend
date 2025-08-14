@@ -3,7 +3,7 @@ import React from "react";
 interface SidebarItemProps {
   id: string;
   label: string;
-  icon: string;
+  icon: React.ReactNode; 
   isActive: boolean;
   onClick: (id: string) => void;
 }
@@ -12,6 +12,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ id, label, icon, isActive, on
   return (
     <li>
       <button
+        type="button"
         onClick={() => onClick(id)}
         className={`w-full flex items-center px-4 py-3 rounded-lg transition-all duration-200
           ${
@@ -20,6 +21,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ id, label, icon, isActive, on
               : "text-gray-700 hover:bg-blue-100"
           }
         `}
+        aria-current={isActive ? "page" : undefined}
       >
         {/* Icono responsivo */}
         <span className="text-xl mr-3 transform transition-transform duration-200 hover:scale-110">
