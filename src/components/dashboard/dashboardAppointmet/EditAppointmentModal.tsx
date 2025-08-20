@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
 import { updateAppointment } from '../../../redux/actions/appointment/updateAppointment';
+import { fetchAppointments } from '../../../redux/actions/appointment/fetchAppointments';
 
 interface Doctor {
   id: string;
@@ -58,22 +58,23 @@ interface EditAppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
   doctors: Doctor[];
+  existingAppointments: AppointmentsData[];
 }
 
 const EditAppointmentModal: React.FC<EditAppointmentModalProps> = ({
   appointment,
   isOpen,
   onClose,
-  doctors
+  doctors,
+  existingAppointments
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [availableHours, setAvailableHours] = useState<string[]>([]);
 
   // Establecer el doctor seleccionado inicialmente
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && doctors.length > 0) {
       const initialDoctor = doctors.find(doc => doc.id === appointment.doctor.id) || null;
       setSelectedDoctor(initialDoctor);
       
@@ -86,47 +87,88 @@ const EditAppointmentModal: React.FC<EditAppointmentModalProps> = ({
   if (!isOpen) return null;
 
   // Función para obtener las horas disponibles a partir del rango de horas
-  const getAvailableHours = (hoursRange: string): string[] => {
-    if (!hoursRange) return [];
-    
-    const [startTime, endTime] = hoursRange.split('-');
-    if (!startTime || !endTime) return [];
-    
-    const start = parseInt(startTime.split(':')[0]);
-    const end = parseInt(endTime.split(':')[0]);
-    
-    const hours: string[] = [];
-    for (let i = start; i < end; i++) {
-      hours.push(`${i.toString().padStart(2, '0')}:00`);
-    }
-    
-    return hours;
+  const getAvailableHours = (hoursRange: ValidTime): string[] => {
+    const ranges = {
+    '09:00-18:00': ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+    '09:00-15:00': ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
+    '14:00-18:00': ['14:00', '15:00', '16:00', '17:00']
+  };
+  
+  return ranges[hoursRange] || [];
   };
 
   // Función para formatear los días de atención
-  const formatDaysAtention = (daysString: string): string => {
-    if (!daysString) return "No disponible";
-    
-    const daysMap: Record<string, string> = {
-      "LUNES": "Lunes",
-      "MARTES": "Martes",
-      "MIERCOLES": "Miércoles",
-      "JUEVES": "Jueves",
-      "VIERNES": "Viernes"
-    };
-    
-    const days = daysString.split(',');
-    return days.map(day => daysMap[day.trim()] || day.trim()).join(", ");
+  const formatDaysAtention = (day: ValidDays): string => {
+   const daysMap: Record<ValidDays, string> = {
+    "LUNES": "Lunes",
+    "MARTES": "Martes",
+    "MIERCOLES": "Miércoles",
+    "JUEVES": "Jueves",
+    "VIERNES": "Viernes"
   };
+  return daysMap[day] || day;
+  };
+  
+const validationSchema = Yup.object({
+  date: Yup.string()
+    .required('La fecha es obligatoria')
+    .test(
+      'fecha-no-pasada',
+      'La fecha no puede ser anterior a hoy',
+      (value) => {
+        if (!value) return false;
+        // Parse fecha como local (YYYY-MM-DD)
+        const [year, month, day] = value.split('-').map(Number);
+        const selectedDate = new Date(year, month - 1, day);
+        selectedDate.setHours(0, 0, 0, 0);
 
-  const validationSchema = Yup.object({
-    date: Yup.date()
-      .required('La fecha es obligatoria')
-      .min(new Date(), 'La fecha no puede ser anterior a hoy'),
-    hour: Yup.string().required('La hora es obligatoria'),
-    status: Yup.string().required('El estado es obligatorio'),
-    doctorId: Yup.string().required('El doctor es obligatorio')
-  });
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return selectedDate.getTime() >= today.getTime();
+      }
+    )
+    .test(
+      'dia-atencion',
+      'El doctor no atiende ese día',
+      function(value) {
+        if (!value || !this.parent.doctorId) return true;
+        const doctor = doctors.find(doc => doc.id === this.parent.doctorId);
+        if (!doctor) return true;
+        const [year, month, day] = value.split('-').map(Number);
+        const selectedDate = new Date(year, month - 1, day);
+        // getDay: 0=Domingo, 1=Lunes, ..., 6=Sábado
+        const daysMap: Record<number, ValidDays> = {
+          1: 'LUNES',
+          2: 'MARTES',
+          3: 'MIERCOLES',
+          4: 'JUEVES',
+          5: 'VIERNES'
+        };
+        const dayOfWeek = daysMap[selectedDate.getDay()];
+        return doctor.days_atention === dayOfWeek;
+      }
+    ),
+  hour: Yup.string()
+    .required('La hora es obligatoria')
+    .test(
+      'cita-ocupada',
+      'Ya existe una cita programada para esta fecha y hora con otro paciente',
+      function(value) {
+        const { date, doctorId } = this.parent;
+        if (!date || !value || !doctorId) return true;
+        const isTaken = existingAppointments.some(app => 
+          app.id !== appointment.id && 
+          app.date === date && 
+          app.hour === value && 
+          app.doctor.id === doctorId 
+        );
+        return !isTaken;
+      }
+    ),
+  status: Yup.string().required('El estado es obligatorio'),
+  doctorId: Yup.string().required('El doctor es obligatorio')
+});
 
   const initialValues = {
     date: appointment.date,
@@ -152,9 +194,9 @@ const EditAppointmentModal: React.FC<EditAppointmentModalProps> = ({
       };
     
       await dispatch(updateAppointment(appointment.id, updatedAppointment));
+      await dispatch(fetchAppointments())
       onClose();
-      navigate(0); // Esto recarga la página actual
-
+      
       } catch (error) {
       console.error('Error al actualizar la cita:', error);
       } 

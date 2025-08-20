@@ -93,15 +93,15 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
   };
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <div className="bg-white rounded-lg p-8 max-w-md w-full">
-      <h2 className="text-2xl font-bold text-center mb-4">Registro de Doctor</h2>
+ return (
+  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-lg">
+      <h2 className="text-2xl font-bold text-center mb-6">Registro de Doctor</h2>
       {error && <p className="text-red-700 text-center mb-4">{error}</p>}
       
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium">Nombre</label>
+          <label className="block text-sm font-medium mb-1">Nombre</label>
           <input
             type="text"
             name="name"
@@ -116,7 +116,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Apellido</label>
+          <label className="block text-sm font-medium mb-1">Apellido</label>
           <input
             type="text"
             name="lastname"
@@ -131,7 +131,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Días de Atención</label>
+          <label className="block text-sm font-medium mb-1">Días de Atención</label>
           <select
             name="days_atention"
             onChange={formik.handleChange}
@@ -148,7 +148,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Horario de Atención</label>
+          <label className="block text-sm font-medium mb-1">Horario de Atención</label>
           <select
             name="hours_attention"
             onChange={formik.handleChange}
@@ -163,7 +163,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Teléfono</label>
+          <label className="block text-sm font-medium mb-1">Teléfono</label>
           <input
             type="text"
             name="telephone"
@@ -178,7 +178,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Email</label>
+          <label className="block text-sm font-medium mb-1">Email</label>
           <input
             type="email"
             name="email"
@@ -193,7 +193,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Especialidad</label>
+          <label className="block text-sm font-medium mb-1">Especialidad</label>
           <select
             name="specialty.id"
             onChange={handleSpecialtyChange}
@@ -217,7 +217,7 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
           )}
         </div>
 
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 pt-2">
           <button
             type="submit"
             disabled={isSubmitting || !formik.isValid}
@@ -240,7 +240,8 @@ const DoctorFormModal = ({ isOpen, onClose }: ModalProps) => {
       </form>
     </div>
   </div>
-  );
+);
+
 };
 
 export default DoctorFormModal;

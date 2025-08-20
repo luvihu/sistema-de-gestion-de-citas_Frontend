@@ -50,8 +50,8 @@ const DoctorManagement = () => {
     dispatch(fetchDoctors());
   }, [dispatch]);
 
-  const handleDelete = (id: string) => {
-    Swal.fire({
+  const handleDelete = async (id: string) => {
+    const result = await Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás revertir esto.",
       icon: "warning",
@@ -59,12 +59,13 @@ const DoctorManagement = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Sí, eliminar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteDoctor(id));
-      }
     });
-  };
+      if (result.isConfirmed) {
+        await dispatch(deleteDoctor(id));
+        await dispatch(fetchDoctors());
+        Swal.fire("Eliminado", "El doctor ha sido eliminado.", "success");
+      }
+   };
   
   const handleUpdateClick = (doctor: DoctorDashboard) => {
     setSelectedDoctor(doctor);
@@ -80,14 +81,32 @@ const DoctorManagement = () => {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl md:text-2xl font-bold mb-6 text-gray-800">Panel de Control de Doctores</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-6 text-gray-800">Panel de Control de Doctores</h2>
+        <div className="flex space-x-4">
+          <button
+        onClick={() => setIsModalOpenRegist(true)}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center"
+        >
+        <FaPlus className="mr-2" /> Agregar Doctor
+        </button>
+
+      <DoctorFormModal 
+        isOpen={isModalOpenRegist}
+        onClose={() => {
+          setIsModalOpenRegist(false);
+          dispatch(fetchDoctors());
+        }}
+      />
       <button 
           onClick={resetFilters}
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-        >
+          >
           Resetear Filtros
         </button>
       </div>
+        
+      </div>
+      
 
       {filteredDoctors.length === 0 ? (
         <div className="text-center py-4 text-gray-500">
@@ -216,32 +235,10 @@ const DoctorManagement = () => {
           }}
         />
       )}
-      <div className="mt-4">
-      <button
-        onClick={() => setIsModalOpenRegist(true)}
-        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
-      >
-       <FaPlus className="mr-2" /> Agregar Doctor
-      </button>
-
-      <DoctorFormModal 
-        isOpen={isModalOpenRegist}
-        onClose={() => {
-          setIsModalOpenRegist(false);
-          dispatch(fetchDoctors());
-        }}
-      />
-     
-    </div>  
-    </div>
+   </div>
   );
 };
 
 export default DoctorManagement;
 
- // Ordenar los doctores alfabéticamente por nombre y apellido
-  //  const sortedDoctors = [...doctors].sort((a, b) => {
-  //   const fullNameA = `${a.name} ${a.lastname}`.toLowerCase();
-  //   const fullNameB = `${b.name} ${b.lastname}`.toLowerCase();
-  //   return fullNameA.localeCompare(fullNameB);
-  // });
+ 

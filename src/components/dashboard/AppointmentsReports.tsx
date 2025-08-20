@@ -119,8 +119,8 @@ const AppointmentsReports = () => {
     setIsModalOpen(true);
   };
 
-  const handleDeleteAppointment = (id: string) => {
-    Swal.fire({
+  const handleDeleteAppointment = async (id: string) => {
+     const result = await  Swal.fire({
               title: "¿Estás seguro de que deseas eliminar esta cita?",
               text: "No podrás revertir esto.",
               icon: "warning",
@@ -128,13 +128,13 @@ const AppointmentsReports = () => {
               confirmButtonColor: "#d33",
               cancelButtonColor: "#3085d6",
               confirmButtonText: "Sí, eliminar",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                dispatch(deleteAppointment(id));
-                Swal.fire("Eliminado", "La cita ha sido eliminada.", "success");
-              }
             });
 
+              if (result.isConfirmed) {
+               await dispatch(deleteAppointment(id));
+               await dispatch(fetchAppointments());
+              Swal.fire("Eliminado", "La cita ha sido eliminada.", "success");
+              }
   };
 
   const handleCloseModal = () => {
@@ -169,6 +169,7 @@ const AppointmentsReports = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           doctors={doctors}
+          existingAppointments={appointments}
         />
       )}
     </div>

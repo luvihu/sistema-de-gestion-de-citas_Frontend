@@ -86,45 +86,49 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments, onEdi
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {appointments.length > 0 ? (
-              appointments.map((appointment) => (
-                <tr key={appointment.id} className="hover:bg-gray-50">
+            {appointments?.length > 0 ? (
+              appointments?.map((appointment) => (
+                <tr key={appointment?.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex flex-col">
                       <div className="text-sm font-medium text-gray-900">
-                        {appointment.user.name} {appointment.user.lastname}
+                        {appointment?.user?.name} {appointment?.user?.lastname}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {appointment.user.email}
+                        {appointment?.user?.email}
                       </div>
                       <div className="text-sm text-gray-500">
-                        Tel: {appointment.user.telephone}
+                        Tel: {appointment?.user?.telephone}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      Dr. {appointment.doctor.name} {appointment.doctor.lastname}
+                     {appointment.doctor && appointment.doctor.name
+                       ? `Dr. ${appointment.doctor.name} ${appointment.doctor.lastname}`
+                       : 'Sin doctor'}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {appointment.doctor.specialty.name}
+                      {(appointment.doctor && appointment.doctor.specialty && appointment.doctor.specialty.name)
+                        ? appointment.doctor.specialty.name
+                        : 'Sin especialidad'}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {formatDate(appointment.date)}
+                      {formatDate(appointment?.date)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {appointment.hour}
+                      {appointment?.hour}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColors[appointment.status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}`}>
-                      {appointment.status}
+                      {appointment?.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">

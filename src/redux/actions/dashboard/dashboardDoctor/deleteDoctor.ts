@@ -1,21 +1,9 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 import { DELETE_DOCTOR, AUTH_ERROR } from "../../../actions-types";
 import { Dispatch } from 'redux';
 
 const API_URL_BASE = import.meta.env.VITE_API_URL_BASE;
-  const showSuccess = () => {
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "¡Eliminación exitosa!",
-      showConfirmButton: false,
-      timer: 1500,
-      width: '250px',
-      toast: true
-    });
-  };
-
+ 
 export const deleteDoctor = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -32,7 +20,7 @@ export const deleteDoctor = (id: string) => {
         type: DELETE_DOCTOR,
         payload: response.data.data,
       });
-      showSuccess();
+      
     } catch (error) {
       let errorMessage = "Error al eliminar desconocido";
       if (error instanceof Error) {

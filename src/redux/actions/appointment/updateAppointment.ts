@@ -36,7 +36,7 @@ export const updateAppointment = (id: string, change: Partial<Appointment>) => {
         payload: response.data.data
       });
       showSuccess();
-
+      
     } catch (error) {
       let errorMessage = "Error de actualización desconocido";
       if (error instanceof Error) {
